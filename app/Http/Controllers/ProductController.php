@@ -18,7 +18,7 @@ class ProductController extends Controller
     private $url        = '/products';
     private $title      = 'Halaman Data Products';
     protected $mProduct;
-    protected $mCategory;
+    protected $mCategory;   
     // protected $mPasien;
 
     public function __construct()
@@ -126,7 +126,7 @@ class ProductController extends Controller
             // ], 201); // 201 Created
         } catch (\Exception $e) {
             DB::rollback(); // Rollback transaksi jika ada error
-            \Log::error('Error creating multiple products: ' . $e->getMessage(), ['exception' => $e, 'request' => $request->all()]);
+            Log::error('Error creating multiple products: ' . $e->getMessage(), ['exception' => $e, 'request' => $request->all()]);
 
             // Respon jika terjadi error
             // Untuk form web biasa, kembali ke form dengan input lama dan pesan error

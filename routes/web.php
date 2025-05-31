@@ -20,10 +20,11 @@ Route::resource('products', ProductController::class)->names([
 ]);
 
 Route::get('/products/template-row', function (Request $request) {
-    // Ambil kategori dari database, karena template butuh data ini
-    $categories = Category::all();
-    $index = $request->query('index', 0); // Dapatkan index dari query string, default 0
-
-    // Render template Blade dan kembalikan sebagai string HTML
-    return view('pages.products._product_item_template', compact('index', 'categories'))->render();
+    try {
+        $categories = Category::all();
+        $index = $request->query('index', 0);
+        return view('pages.products._product_item_template', compact('index', 'categories'))->render();
+    } catch (\Exception $e) {
+        return response('Gagal render template: ' . $e->getMessage(), 500);
+    }
 })->name('products.template-row');
